@@ -63,7 +63,8 @@ function handleOnChange(event) {
     setNewMessage(event.target.value);
 }
 
-function sendMessage() {
+function sendMessage(event) {
+  event.preventDefault();
   console.log(drone.current);
   drone.current.publish({
     room: "observable-room",
@@ -86,19 +87,21 @@ return (
           </div>
           <div className="chatbox">
             <Messages messages={messages} user={user.droneState} />
-          <div className="input_field_box">
-          <input
-            value={newMessage}
-            onChange={handleOnChange}
-            placeholder="Upišite poruku..."
-            className="input_field"
-            type="text"
-          />
+            <form onSubmit={sendMessage}>
+              <div className="input_field_box">
+              <input
+                value={newMessage}
+                onChange={handleOnChange}
+                placeholder="Upišite poruku..."
+                className="input_field"
+                type="text"
+              />
 
-        <button onClick={sendMessage} className="send-message-button">
-          Šalji
-        </button>
-        </div>
+            <button type="submit" className="send-message-button">
+              Šalji
+            </button>
+            </div>
+        </form>
       </div>
     </div>
     );
